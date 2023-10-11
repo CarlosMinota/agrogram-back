@@ -21,4 +21,10 @@ public interface IUsuarioService {
 	public List<Departamento> listAllDepartamentos();
 	
 	public Usuario findByUsername(String username);
+
+	public boolean existByUsername(String username);
+
+	public boolean existByCedula(String cedula);
+
+	public boolean existByEmail(String email);
 }

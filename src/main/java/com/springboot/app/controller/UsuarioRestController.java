@@ -152,6 +152,45 @@ public class UsuarioRestController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
+
+	@GetMapping("/usuario/username/{username}")
+	public ResponseEntity<?> existsByUsername(@PathVariable String username){
+		HashMap<String, Object> response = new HashMap<>();
+
+		if (iUsuarioService.existByUsername(username)){
+			response.put("mensaje", "El nombre de usuario ya se está en uso");
+			return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+		}
+
+		response.put("estado", false);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/usuario/cedula/{cedula}")
+	public ResponseEntity<?> existsByCedula(@PathVariable String cedula){
+		HashMap<String, Object> response = new HashMap<>();
+
+		if (iUsuarioService.existByCedula(cedula)){
+			response.put("mensaje", "La cedula que ha ingresado ya está registrada");
+			return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+		}
+
+		response.put("estado", false);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/usuario/email/{email}")
+	public ResponseEntity<?> existsByEmail(@PathVariable String email){
+		HashMap<String, Object> response = new HashMap<>();
+
+		if (iUsuarioService.existByEmail(email)){
+			response.put("mensaje", "El correo electronico ya se encuentra registrado");
+			return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+		}
+
+		response.put("estado", false);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
 	
 	@PostMapping("usuario/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
