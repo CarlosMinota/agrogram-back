@@ -33,4 +33,6 @@ public class UsuarioDto implements Serializable {
 	private String imagen;
 	
 	private Integer ciudad;
+
+	private Integer departamento;
 }

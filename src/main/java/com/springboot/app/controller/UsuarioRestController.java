@@ -81,9 +81,31 @@ public class UsuarioRestController {
 	@GetMapping("/usuario/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id){
 		
-		Usuario usuario = null;
+		UsuarioDto usuarioDto = null;
 		HashMap<String, Object> response = new HashMap<>();
 		
+		try {
+			usuarioDto = usuarioMapper.usuarioToUsuarioDto(iUsuarioService.findById(id));
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos!");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if (usuarioDto == null) {
+			response.put("mensaje", "El usuario con ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		response.put("usuario", usuarioDto);
+		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/usuario-entidad/{id}")
+	public ResponseEntity<?> showEntidad(@PathVariable Long id){
+
+		Usuario usuario = null;
+		HashMap<String, Object> response = new HashMap<>();
+
 		try {
 			usuario = iUsuarioService.findById(id);
 		} catch (DataAccessException e) {
@@ -91,7 +113,7 @@ public class UsuarioRestController {
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		if (usuario == null) {
 			response.put("mensaje", "El usuario con ID: ".concat(id.toString().concat(" no existe en la base de datos!")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
