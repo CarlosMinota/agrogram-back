@@ -19,4 +19,6 @@ public interface IProductoService {
 	public List<Categoria> findAllCategorias();
 	
 	public List<PresentacionProducto> findAllPresentacionProductos();
+
+	public List<Producto> filtrarProductos(String nombreProducto);
 }

@@ -16,4 +16,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	
 	@Query("from PresentacionProducto")
 	public List<PresentacionProducto> findAllPresentacionProducto();
+
+	public List<Producto> findByNombreProductoContainingIgnoreCase(String nombreProducto);
 }
