@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,6 +72,7 @@ public class ProductoRestController {
 		return iProductoService.findAllPresentacionProductos();
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@PostMapping("/producto")
 	public ResponseEntity<?> create(@RequestBody ProductoDto productoDto) {
 
@@ -89,6 +91,7 @@ public class ProductoRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@GetMapping("/producto/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 
@@ -113,6 +116,7 @@ public class ProductoRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@GetMapping("/producto-entidad/{id}")
 	public ResponseEntity<?> showEntidad(@PathVariable Long id) {
 
@@ -137,6 +141,7 @@ public class ProductoRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@PutMapping("/producto/{id}")
 	public ResponseEntity<?> update(@RequestBody ProductoDto productoDto, @PathVariable Long id) {
 		Producto productoActual = iProductoService.findById(id);
@@ -164,6 +169,7 @@ public class ProductoRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@DeleteMapping("/producto/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		HashMap<String, Object> response = new HashMap<>();
@@ -180,6 +186,7 @@ public class ProductoRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@PostMapping("/producto/uploads")
 	public ResponseEntity<?> uploadImagenProducto(@RequestParam("archivo") MultipartFile archivo,
 			@RequestParam Long id) {
@@ -226,6 +233,7 @@ public class ProductoRestController {
 		return new ResponseEntity<Resource>(recurso, cabecera, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@DeleteMapping("/producto/uploads/{id}")
 	public ResponseEntity<?> deleteImagenProducto(@PathVariable Long id) {
 		HashMap<String, Object> response = new HashMap<>();

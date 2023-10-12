@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.springboot.app.service.IUsuarioRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +42,9 @@ public class UsuarioRestController {
 	
 	@Autowired
 	private IUsuarioService iUsuarioService;
+
+	@Autowired
+	private IUsuarioRoleService iUsuarioRoleService;
 	
 	@Autowired
 	private UsuarioMapper usuarioMapper;
@@ -54,18 +59,22 @@ public class UsuarioRestController {
 	public List<Usuario> findAll(){
 		return iUsuarioService.findAll();
 	}
-	
+
 	@PostMapping("/usuario")
 	public ResponseEntity<?> create(@RequestBody UsuarioDto usuarioDto){
 		
 		Map<String, Object> response = new HashMap<>();
 		String encriptarContrasena = "";
+
+		Usuario usuario = new Usuario();
 		
 		try {
 			usuarioDto.setEstadoUsuario(true);
 			encriptarContrasena = bCryptPasswordEncoder.encode(usuarioDto.getContrasena());
 			usuarioDto.setContrasena(encriptarContrasena);
-			iUsuarioService.save(usuarioMapper.usuarioDtoToUsuario(usuarioDto));
+			usuario = usuarioMapper.usuarioDtoToUsuario(usuarioDto);
+			iUsuarioService.save(usuario);
+			iUsuarioRoleService.saveUsuarioRole(usuario.getIdUsuario());
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Se ha presentado un error insertando en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -77,7 +86,8 @@ public class UsuarioRestController {
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@GetMapping("/usuario/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id){
 		
@@ -86,6 +96,7 @@ public class UsuarioRestController {
 		
 		try {
 			usuarioDto = usuarioMapper.usuarioToUsuarioDto(iUsuarioService.findById(id));
+			usuarioDto.setContrasena("");
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al realizar la consulta en la base de datos!");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -100,6 +111,7 @@ public class UsuarioRestController {
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
 
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@GetMapping("/usuario-entidad/{id}")
 	public ResponseEntity<?> showEntidad(@PathVariable Long id){
 
@@ -121,7 +133,8 @@ public class UsuarioRestController {
 		response.put("usuario", usuario);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@PutMapping("/usuario/{id}")
 	public ResponseEntity<?> update(@RequestBody UsuarioDto usuarioDto, @PathVariable Long id){
 		Usuario usuarioActual = iUsuarioService.findById(id);
@@ -138,6 +151,7 @@ public class UsuarioRestController {
 		
 		try {
 			usuarioActual.setNombreUsuario(usuarioUpdate.getNombreUsuario());
+			usuarioActual.setUsername(usuarioUpdate.getUsername());
 			usuarioActual.setTelefono(usuarioUpdate.getTelefono());
 			usuarioActual.setEstadoUsuario(usuarioUpdate.getEstadoUsuario());
 			usuarioActual.setEmail(usuarioUpdate.getEmail());
@@ -157,7 +171,8 @@ public class UsuarioRestController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@DeleteMapping("/usuario/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		HashMap<String, Object> response = new HashMap<>();
@@ -213,7 +228,8 @@ public class UsuarioRestController {
 		response.put("estado", false);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 	}
-	
+
+	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
 	@PostMapping("usuario/upload")
 	public ResponseEntity<?> upload(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id) {
 
