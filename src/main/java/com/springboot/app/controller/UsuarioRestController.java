@@ -155,7 +155,6 @@ public class UsuarioRestController {
 			usuarioActual.setTelefono(usuarioUpdate.getTelefono());
 			usuarioActual.setEstadoUsuario(usuarioUpdate.getEstadoUsuario());
 			usuarioActual.setEmail(usuarioUpdate.getEmail());
-			usuarioActual.setCedula(usuarioUpdate.getCedula());
 			usuarioActual.setContrasena(usuarioUpdate.getContrasena());
 			usuarioActual.setCiudad(usuarioUpdate.getCiudad());
 			
@@ -196,19 +195,6 @@ public class UsuarioRestController {
 
 		if (iUsuarioService.existByUsername(username)){
 			response.put("mensaje", "El nombre de usuario ya se está en uso");
-			return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
-		}
-
-		response.put("estado", false);
-		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/usuario/cedula/{cedula}")
-	public ResponseEntity<?> existsByCedula(@PathVariable String cedula){
-		HashMap<String, Object> response = new HashMap<>();
-
-		if (iUsuarioService.existByCedula(cedula)){
-			response.put("mensaje", "La cedula que ha ingresado ya está registrada");
 			return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
 		}
 

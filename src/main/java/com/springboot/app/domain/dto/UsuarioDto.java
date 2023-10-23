@@ -24,8 +24,6 @@ public class UsuarioDto implements Serializable {
 	
 	private String email;
 	
-	private String cedula;
-	
 	private String contrasena;
 	
 	private String username;

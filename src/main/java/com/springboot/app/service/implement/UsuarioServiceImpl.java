@@ -73,11 +73,6 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
-	public boolean existByCedula(String cedula) {
-		return usuarioRepository.existsByCedula(cedula);
-	}
-
-	@Override
 	public boolean existByEmail(String email) {
 		return usuarioRepository.existsByEmail(email);
 	}

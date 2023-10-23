@@ -10,7 +10,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public boolean existsByUsername(String username);
 
-	public boolean existsByCedula(String cedula);
-
 	public boolean existsByEmail(String email);
 }

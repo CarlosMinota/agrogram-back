@@ -24,7 +24,5 @@ public interface IUsuarioService {
 
 	public boolean existByUsername(String username);
 
-	public boolean existByCedula(String cedula);
-
 	public boolean existByEmail(String email);
 }
