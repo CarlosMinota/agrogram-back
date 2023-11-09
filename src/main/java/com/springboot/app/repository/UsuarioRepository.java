@@ -4,6 +4,8 @@ import com.springboot.app.domain.Usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	public Usuario findByUsername(String username);
@@ -11,4 +13,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public boolean existsByUsername(String username);
 
 	public boolean existsByEmail(String email);
+
+	public List<Usuario> findByNombreUsuarioContainingIgnoreCase(String nombreUsuario);
 }

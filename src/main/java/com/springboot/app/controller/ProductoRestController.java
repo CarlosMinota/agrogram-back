@@ -57,6 +57,12 @@ public class ProductoRestController {
 	public List<Categoria> findAllCategorias(){
 		return iProductoService.findAllCategorias();
 	}
+
+	@GetMapping("/producto/filtrar-productos/{nombreProducto}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Producto> filtrarProductos(@PathVariable String nombreProducto){
+		return iProductoService.filtrarProductos(nombreProducto);
+	}
 	
 	@GetMapping("/producto/presentacion-producto")
 	public List<PresentacionProducto> findAllPresentacionProductos(){
@@ -175,12 +181,6 @@ public class ProductoRestController {
 
 		response.put("mensaje", "El producto se ha eliminado con éxito");
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
-	}
-
-	@GetMapping("/producto/filtrar-productos/{nombreProducto}")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Producto> filtrarProductos(@PathVariable String nombreProducto){
-		return iProductoService.filtrarProductos(nombreProducto);
 	}
 
 	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})

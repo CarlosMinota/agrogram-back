@@ -78,6 +78,11 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
+	public List<Usuario> filtrarUsuarios(String nombreUsuario) {
+		return usuarioRepository.findByNombreUsuarioContainingIgnoreCase(nombreUsuario);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		

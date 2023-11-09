@@ -25,4 +25,6 @@ public interface IUsuarioService {
 	public boolean existByUsername(String username);
 
 	public boolean existByEmail(String email);
+
+	public List<Usuario> filtrarUsuarios(String nombreUsuario);
 }
