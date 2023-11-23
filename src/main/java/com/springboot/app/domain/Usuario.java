@@ -69,8 +69,13 @@ public class Usuario implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_ciudad")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-	@NotNull(message = "no puede estar vacio")
 	private Ciudad ciudad;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "fk_tipo_usuario")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@NotNull(message = "no puede estar vacio")
+	private TipoUsuario tipoUsuario;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = {"usuario", "hibernateLazyInitializer", "handler"}, allowSetters = true)

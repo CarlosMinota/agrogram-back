@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.springboot.app.domain.Ciudad;
 import com.springboot.app.domain.Departamento;
+import com.springboot.app.domain.TipoUsuario;
 import com.springboot.app.domain.Usuario;
 
 public interface IUsuarioService {
@@ -18,7 +19,9 @@ public interface IUsuarioService {
 	
 	public List<Ciudad> listaCiudadesDepartamento(Long id);
 	
-	public List<Departamento> listAllDepartamentos();
+	public List<Departamento> listAllDepartamentos(Long idDepartamento);
+
+	public List<TipoUsuario> listTipoUsuario();
 	
 	public Usuario findByUsername(String username);
 

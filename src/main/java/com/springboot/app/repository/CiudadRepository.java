@@ -12,6 +12,6 @@ public interface CiudadRepository extends JpaRepository<Ciudad, Long> {
 
 	public List<Ciudad> findByDepartamento_idDepartamento(Long id);
 	
-	@Query("from Departamento")
-	public List<Departamento> findAllDepartamentos();
+	@Query("select u from Departamento u where u.idDepartamento != ?1")
+	public List<Departamento> findAllDepartamentos(Long idDepartamento);
 }

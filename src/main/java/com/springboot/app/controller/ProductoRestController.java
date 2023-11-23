@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.app.domain.Categoria;
 import com.springboot.app.domain.ImagenProducto;
-import com.springboot.app.domain.PresentacionProducto;
 import com.springboot.app.domain.Producto;
 import com.springboot.app.domain.dto.ImagenProductoDto;
 import com.springboot.app.domain.dto.ProductoDto;
@@ -62,11 +61,6 @@ public class ProductoRestController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Producto> filtrarProductos(@PathVariable String nombreProducto){
 		return iProductoService.filtrarProductos(nombreProducto);
-	}
-	
-	@GetMapping("/producto/presentacion-producto")
-	public List<PresentacionProducto> findAllPresentacionProductos(){
-		return iProductoService.findAllPresentacionProductos();
 	}
 
 	@Secured({"ROLE_VENDEDOR", "ROLE_COMPRADOR"})
@@ -153,7 +147,6 @@ public class ProductoRestController {
 			productoActual.setDescripcion(productoDto.getDescripcion());
 			productoActual.setCategoria(productoUpdate.getCategoria());
 			productoActual.setUsuario(productoUpdate.getUsuario());
-			productoActual.setPresentacionProducto(productoUpdate.getPresentacionProducto());
 			iProductoService.save(productoActual);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al actualizar el producto en la base de datos!");

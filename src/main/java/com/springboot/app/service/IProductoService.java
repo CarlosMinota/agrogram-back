@@ -3,7 +3,6 @@ package com.springboot.app.service;
 import java.util.List;
 
 import com.springboot.app.domain.Categoria;
-import com.springboot.app.domain.PresentacionProducto;
 import com.springboot.app.domain.Producto;
 
 public interface IProductoService {
@@ -17,8 +16,6 @@ public interface IProductoService {
 	public void delete(Long id);
 	
 	public List<Categoria> findAllCategorias();
-	
-	public List<PresentacionProducto> findAllPresentacionProductos();
 
 	public List<Producto> filtrarProductos(String nombreProducto);
 }

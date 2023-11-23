@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.springboot.app.domain.TipoUsuario;
 import com.springboot.app.service.IUsuarioRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -63,7 +64,7 @@ public class UsuarioRestController {
 		Map<String, Object> response = new HashMap<>();
 		String encriptarContrasena = "";
 
-		Usuario usuario = new Usuario();
+		Usuario usuario;
 		
 		try {
 			usuarioDto.setEstadoUsuario(true);
@@ -71,7 +72,7 @@ public class UsuarioRestController {
 			usuarioDto.setContrasena(encriptarContrasena);
 			usuario = usuarioMapper.usuarioDtoToUsuario(usuarioDto);
 			iUsuarioService.save(usuario);
-			iUsuarioRoleService.saveUsuarioRole(usuario.getIdUsuario());
+			iUsuarioRoleService.saveUsuarioRole(usuario.getIdUsuario(), usuarioDto.getTipoUsuario());
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Se ha presentado un error insertando en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -288,7 +289,7 @@ public class UsuarioRestController {
 		List<Departamento> listaDepartamentos = null;
 		
 		try {
-			listaDepartamentos = iUsuarioService.listAllDepartamentos();
+			listaDepartamentos = iUsuarioService.listAllDepartamentos(1L);
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error al listar los departamentos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
@@ -296,5 +297,10 @@ public class UsuarioRestController {
 		}
 		response.put("departamentos", listaDepartamentos);
 		return new ResponseEntity<HashMap<String, Object>>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/usuario/tipo-usuario")
+	public List<TipoUsuario> listTipoUsuario(){
+		return iUsuarioService.listTipoUsuario();
 	}
 }

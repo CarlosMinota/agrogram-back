@@ -35,7 +35,5 @@ public class ProductoDto implements Serializable {
 	private Long categoria;
 	
 	private Long usuario;
-	
-	private Long presentacionProducto;
 
 }

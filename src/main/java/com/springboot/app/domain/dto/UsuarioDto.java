@@ -29,7 +29,9 @@ public class UsuarioDto implements Serializable {
 	private String username;
 	
 	private String imagen;
-	
+
+	private Long tipoUsuario;
+
 	private Integer ciudad;
 
 	private Integer departamento;

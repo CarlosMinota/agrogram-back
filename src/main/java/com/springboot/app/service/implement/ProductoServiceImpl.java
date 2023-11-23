@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.springboot.app.domain.Categoria;
-import com.springboot.app.domain.PresentacionProducto;
 import com.springboot.app.domain.Producto;
 import com.springboot.app.repository.ProductoRepository;
 import com.springboot.app.service.IProductoService;
@@ -44,11 +43,6 @@ public class ProductoServiceImpl implements IProductoService {
 	@Override
 	public List<Categoria> findAllCategorias() {
 		return productoRepository.findAllCategorias();
-	}
-
-	@Override
-	public List<PresentacionProducto> findAllPresentacionProductos() {
-		return productoRepository.findAllPresentacionProducto();
 	}
 
 	@Override

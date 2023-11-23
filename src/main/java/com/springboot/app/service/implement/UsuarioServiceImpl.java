@@ -2,6 +2,7 @@ package com.springboot.app.service.implement;
 
 import com.springboot.app.domain.Ciudad;
 import com.springboot.app.domain.Departamento;
+import com.springboot.app.domain.TipoUsuario;
 import com.springboot.app.domain.Usuario;
 import com.springboot.app.repository.CiudadRepository;
 import com.springboot.app.repository.UsuarioRepository;
@@ -58,8 +59,13 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
-	public List<Departamento> listAllDepartamentos() {
-		return ciudadRepository.findAllDepartamentos();
+	public List<Departamento> listAllDepartamentos(Long idDepartamento) {
+		return ciudadRepository.findAllDepartamentos(idDepartamento);
+	}
+
+	@Override
+	public List<TipoUsuario> listTipoUsuario() {
+		return usuarioRepository.listTipoUsuario();
 	}
 
 	@Override

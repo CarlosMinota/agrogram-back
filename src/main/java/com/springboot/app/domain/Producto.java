@@ -69,12 +69,6 @@ public class Producto implements Serializable {
 	@JsonIgnoreProperties(value = {"productos", "hibernateLazyInitializer", "handler"}, allowSetters = true)
 	@NotNull(message = "no puede estar vacio")
 	private Usuario usuario;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_presentacion")
-	@JsonIgnoreProperties(value = {"productos", "hibernateLazyInitializer", "handler"}, allowSetters = true)
-	@NotNull(message = "no puede estar vacio")
-	private PresentacionProducto presentacionProducto;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "producto", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = {"producto", "hibernateLazyInitializer", "handler"}, allowSetters = true)

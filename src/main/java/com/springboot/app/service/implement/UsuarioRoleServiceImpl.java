@@ -17,10 +17,15 @@ public class UsuarioRoleServiceImpl implements IUsuarioRoleService {
     @Autowired
     private UsuarioRoleMapper usuarioRoleMapper;
     @Override
-    public void saveUsuarioRole(Long idUsuario) {
+    public void saveUsuarioRole(Long idUsuario, Long tipoUsuario) {
         UsuarioRoleDto usuarioRoleDto = new UsuarioRoleDto();
-        usuarioRoleDto.setUsuario(idUsuario);
-        usuarioRoleDto.setRole(1L);
+        if (tipoUsuario == 1L){
+            usuarioRoleDto.setUsuario(idUsuario);
+            usuarioRoleDto.setRole(2L);
+        } else if (tipoUsuario == 2L){
+            usuarioRoleDto.setUsuario(idUsuario);
+            usuarioRoleDto.setRole(1L);
+        }
         usuarioRoleRepository.save(usuarioRoleMapper.usuarioRoleDtoToUsuarioRole(usuarioRoleDto));
     }
 }

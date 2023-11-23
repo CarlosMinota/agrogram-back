@@ -13,10 +13,12 @@ public interface UsuarioMapper {
 
 	@Mapping(source = "ciudad", target = "ciudad.idCiudad")
 	@Mapping(source = "departamento", target = "ciudad.departamento.idDepartamento")
+	@Mapping(source = "tipoUsuario", target = "tipoUsuario.idTipoUsuario")
 	public Usuario usuarioDtoToUsuario(UsuarioDto usuarioDto);
 	
 	@Mapping(source = "ciudad.idCiudad", target = "ciudad")
 	@Mapping(source = "ciudad.departamento.idDepartamento", target = "departamento")
+	@Mapping(source = "tipoUsuario.idTipoUsuario", target = "tipoUsuario")
 	public UsuarioDto usuarioToUsuarioDto(Usuario usuario);
 	
 	public List<UsuarioDto> listUsuarioToListUsuarioDto(List<Usuario> listaUsuario);
