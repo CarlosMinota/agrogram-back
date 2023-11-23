@@ -49,7 +49,7 @@ public class UsuarioRestController {
 	
 	@GetMapping("/usuario")
 	public List<Usuario> findAll(){
-		return iUsuarioService.findAll();
+		return iUsuarioService.findAllUsuariosTipoProductor(2L);
 	}
 
 	@GetMapping("/usuario/filtrar-usuarios/{nombreUsuario}")

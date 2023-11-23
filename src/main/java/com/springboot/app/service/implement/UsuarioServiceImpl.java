@@ -38,8 +38,8 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
-	public List<Usuario> findAll() {
-		return usuarioRepository.findAll();
+	public List<Usuario> findAllUsuariosTipoProductor(Long idTipoUsuario) {
+		return usuarioRepository.findAllByTipoUsuario_IdTipoUsuario(idTipoUsuario);
 	}
 
 	@Override

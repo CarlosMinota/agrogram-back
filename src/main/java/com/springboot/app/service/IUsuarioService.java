@@ -11,7 +11,7 @@ public interface IUsuarioService {
 	
 	public Usuario save(Usuario usuario);
 	
-	public List<Usuario> findAll();
+	public List<Usuario> findAllUsuariosTipoProductor(Long idTipoUsuario);
 	
 	public Usuario findById(Long id);
 	

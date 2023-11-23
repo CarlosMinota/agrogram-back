@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
+	public List<Usuario> findAllByTipoUsuario_IdTipoUsuario(Long idTipoUsuario);
+
 	public Usuario findByUsername(String username);
 
 	public boolean existsByUsername(String username);
