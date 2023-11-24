@@ -84,8 +84,8 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 	}
 
 	@Override
-	public List<Usuario> filtrarUsuarios(String nombreUsuario) {
-		return usuarioRepository.findByNombreUsuarioContainingIgnoreCase(nombreUsuario);
+	public List<Usuario> filtrarUsuarios(Long idTipoUsuario, String nombreUsuario) {
+		return usuarioRepository.findByTipoUsuario_IdTipoUsuarioAndNombreUsuarioContainingIgnoreCase(idTipoUsuario, nombreUsuario);
 	}
 
 	@Override

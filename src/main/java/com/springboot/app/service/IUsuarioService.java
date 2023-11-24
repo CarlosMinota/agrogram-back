@@ -29,5 +29,5 @@ public interface IUsuarioService {
 
 	public boolean existByEmail(String email);
 
-	public List<Usuario> filtrarUsuarios(String nombreUsuario);
+	public List<Usuario> filtrarUsuarios(Long idTipoUsuario, String nombreUsuario);
 }

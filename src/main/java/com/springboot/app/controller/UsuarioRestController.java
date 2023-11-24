@@ -55,7 +55,7 @@ public class UsuarioRestController {
 	@GetMapping("/usuario/filtrar-usuarios/{nombreUsuario}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Usuario> filtrarUsuarios(@PathVariable String nombreUsuario){
-		return iUsuarioService.filtrarUsuarios(nombreUsuario);
+		return iUsuarioService.filtrarUsuarios(2L, nombreUsuario);
 	}
 
 	@PostMapping("/usuario")
