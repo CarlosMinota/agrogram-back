@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.springboot.app.domain.Categoria;
@@ -26,7 +27,7 @@ public class ProductoServiceImpl implements IProductoService {
 
 	@Override
 	public List<Producto> findAll() {
-		return productoRepository.findAll();
+		return productoRepository.findAll(Sort.by("nombreProducto"));
 	}
 
 	@Override
